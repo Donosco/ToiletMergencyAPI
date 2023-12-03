@@ -17,26 +17,6 @@ export class AppService implements OnModuleInit{
   }
 
   private async fetchToilettesFromServer() : Promise<void> {
-    // return firstValueFrom(
-    //   this.httpService.get('https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/fr-toilettes-publiques@ampmetropole/records?limit=20')
-    //   .pipe(
-    //     map((response) => response.data),
-    //     tap((toilets : ToiletteAPI[]) => {
-    //       toilets.forEach(toilet => 
-    //        this.addToilette({
-    //           Id: toilet.id,
-    //           Commune: toilet.commune,
-    //           Code_Postal: toilet.code_postal,
-    //           PointGeo: [toilet.point_geo.lat, toilet.point_geo.lon],
-    //           Longitude: toilet.lon,
-    //           OpeningHours: toilet.tags_opening_hours,
-    //         }),
-    //       );
-    //     }),
-    //     map(() => undefined),
-    //   ),
-    // );
-
     return firstValueFrom(
       this.httpService.get('https://data.opendatasoft.com/api/records/1.0/search/?dataset=fr-toilettes-publiques%40ampmetropole&rows=590')
       .pipe(
