@@ -1,22 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { INestApplication } from '@nestjs/common';
+import supertest, * as request from 'supertest';
+import { AppModule } from './app.module';
+import exp from 'constants';
 
-describe('AppController', () => {
-  let appController: AppController;
+describe('AppController (e2e)', () => {
+  let app: INestApplication;
+  let httpRequester : supertest.SuperTest<supertest.Test>;
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    app = moduleFixture.createNestApplication();
+    await app.init();
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+  it('/ (GET)', async () => {
+    const response = await httpRequester.get('/toilettes').expect(200);
+
+    expect(response.body).toEqual(expect.any(Array));
   });
 });
