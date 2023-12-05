@@ -2,7 +2,7 @@ import { Controller, Get, Body, Delete, Param, Post, Query, HttpCode } from '@ne
 import { AppService } from './app.service';
 import { Toilette } from './Toilette';
 
-@Controller('Toilette')
+@Controller('toilettes')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 

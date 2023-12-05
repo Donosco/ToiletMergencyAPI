@@ -5,17 +5,26 @@ import { firstValueFrom, map, tap } from 'rxjs';
 import { ToiletteAPI } from './ToiletteAPI';
 import { cp } from 'fs';
 
+/**
+ * 
+ */
 @Injectable()
 export class AppService implements OnModuleInit{
   private readonly toilettes = new Map<String, Toilette>();
 
   constructor(private readonly httpService : HttpService) {}
 
+  /**
+   * Function that runs when the module is initialized
+   */
   async onModuleInit() {
     await this.fetchToilettesFromServer();
     console.log(`We have ${this.toilettes.size} toilettes`);
   }
-
+  /**
+   * Function to fetch toilettes from the server (API)
+   * @returns 
+   */
   private async fetchToilettesFromServer() : Promise<void> {
     return firstValueFrom(
       this.httpService.get('https://data.opendatasoft.com/api/records/1.0/search/?dataset=fr-toilettes-publiques%40ampmetropole&rows=590')
@@ -37,10 +46,18 @@ export class AppService implements OnModuleInit{
     );
   }
 
+  /**
+   * Function to add a toilet to the storage
+   * @param toilette 
+   */
   addToilette(toilette: Toilette): void {
     this.toilettes.set(toilette.Id, toilette);
   }
 
+  /**
+   *  Get all toilettes that return all the toilets in current storage
+   * @param id 
+   */
   getAllToilettes(): Array<Toilette> {
     return Array.from(this.toilettes.values());
   }
