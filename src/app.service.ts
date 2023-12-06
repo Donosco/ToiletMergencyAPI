@@ -39,6 +39,7 @@ export class AppService implements OnModuleInit{
               PointGeo: [toilet.fields.point_geo[0], toilet.fields.point_geo[1]],
               Longitude: toilet.fields.lon,
               OpeningHours: toilet.fields.tags_opening_hours,
+              isFavorite: false,
             }),
           );
         }),
@@ -51,7 +52,12 @@ export class AppService implements OnModuleInit{
    * @param toilette 
    */
   addToilette(toilette: Toilette): void {
-    this.toilettes.set(toilette.Id, toilette);
+    //Firsd we check if the toilette is already in the storage
+    if (this.toilettes.has(toilette.Id)) {
+      throw new Error('Toilette already exists');
+    }else{
+      this.toilettes.set(toilette.Id, toilette);
+    }
   }
 
   /**
@@ -60,6 +66,25 @@ export class AppService implements OnModuleInit{
    */
   getAllToilettes(): Array<Toilette> {
     return Array.from(this.toilettes.values());
+  }
+
+  /**
+   * Add a toilette to favorites 
+   * @param id 
+   */
+  updateFavorite(id: string) {
+    const toilette = this.toilettes.get(id);
+    if (toilette) {
+      toilette.isFavorite = !toilette.isFavorite;
+    }
+  }
+
+  /**
+   * Remove a toilette from the storage
+   * @param id 
+   */
+  remove(id: string) {
+    this.toilettes.delete(id);
   }
 
 }

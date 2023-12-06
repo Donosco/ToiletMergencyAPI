@@ -27,6 +27,10 @@ export class Toilette {
      * Horaires d'ouverture de la toilette
      */
     OpeningHours: string[];
+    /**
+     * Flag pour savoir si la toilette est favorite
+     */
+    isFavorite: boolean = false;
 
 
 /**
