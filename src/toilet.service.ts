@@ -3,13 +3,12 @@ import { Toilette } from './Toilette';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { ToiletteAPI } from './ToiletteAPI';
-import { cp } from 'fs';
 
 /**
  * 
  */
 @Injectable()
-export class AppService implements OnModuleInit{
+export class ToiletService implements OnModuleInit{
   private readonly toilettes = new Map<String, Toilette>();
 
   constructor(private readonly httpService : HttpService) {}
@@ -27,22 +26,24 @@ export class AppService implements OnModuleInit{
    */
   private async fetchToilettesFromServer() : Promise<void> {
     return firstValueFrom(
-      this.httpService.get('https://data.opendatasoft.com/api/records/1.0/search/?dataset=fr-toilettes-publiques%40ampmetropole&rows=590')
+      this.httpService.get('https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/fr-toilettes-publiques@ampmetropole/records?limit=100')
       .pipe(
-        map((response) => response.data),
-        tap((toilets) => {
-          toilets.records.forEach(toilet => 
+        map((response) => response.data.results),
+        tap((toilets1 : ToiletteAPI[]) => {
+          console.log(Array.isArray(toilets1));
+          toilets1.forEach(toilet => 
            this.addToilette({
-              Id: toilet.recordid,
-              Commune: toilet.fields.commune,
-              Code_Postal: toilet.fields.code_postal,
-              PointGeo: [toilet.fields.point_geo[0], toilet.fields.point_geo[1]],
-              Longitude: toilet.fields.lon,
-              OpeningHours: toilet.fields.tags_opening_hours,
+              Id: toilet.id,
+              Commune: toilet.commune,
+              Code_Postal: toilet.code_postal,
+              PointGeo: toilet.point_geo,
+              Longitude: toilet.lon,
+              OpeningHours: toilet.tags_opening_hours,
               isFavorite: false,
             }),
           );
         }),
+        map(() => undefined),
       ),
     );
   }

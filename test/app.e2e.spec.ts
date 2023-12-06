@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import supertest, * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { ToiletModule } from '../src/toilet.module';
 import exp from 'constants';
 
-describe('AppController (e2e)', () => {
+describe('Toilet API)', () => {
   let app: INestApplication;
   let httpRequester : supertest.SuperTest<supertest.Test>;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [ToiletModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

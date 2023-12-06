@@ -26,7 +26,7 @@ export class Toilette {
     /**
      * Horaires d'ouverture de la toilette
      */
-    OpeningHours: string[];
+    OpeningHours: string;
     /**
      * Flag pour savoir si la toilette est favorite
      */
@@ -43,7 +43,7 @@ export class Toilette {
  * @param Longitude 
  * @param OpeningHours 
  */
-    constructor(Commune: string, Code_Postal: string, PointGeo: PointGeo, Id: string, Longitude: string, OpeningHours: string[]) {
+    constructor(Commune: string, Code_Postal: string, PointGeo: PointGeo, Id: string, Longitude: string, OpeningHours: string) {
         this.Commune = Commune;
         this.Code_Postal = Code_Postal;
         this.PointGeo = PointGeo;
