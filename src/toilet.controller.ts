@@ -34,4 +34,9 @@ export class ToiletController {
       message : "Toilet deleted"
     }
   }
+
+  @Post('/search/commune')
+  searchByCommune(@Body('Commune') Commune: string) {
+    return this.toiletService.searchByCommune(Commune);
+  }
 }

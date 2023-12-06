@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import supertest  from 'supertest';
 import * as request from 'supertest';
-import { PointGeo } from './PointGeo';
 import { ToiletModule } from './toilet.module';
 
 describe('Toilet API', () => {
@@ -143,6 +142,43 @@ describe('Toilet API', () => {
       Longitude: "5.465",
       OpeningHours: "24/7",
     });
+  });
+
+  it('/ (POST search by commune)', async () => {
+    const response = await httpRequester
+    .post('/toilettes')
+    .send ({
+      Commune:  "Gardanne",
+      Code_Postal: "13120",
+      PointGeo: {
+        lon: 5.465,
+        lat: 43.452,
+      },
+      Id: "763910b0-5c3c",
+      Longitude: "5.465",
+      OpeningHours: "24/7",
+    })
+    .expect(201);
+
+    const response1 = await httpRequester
+    .post('/toilettes/search/commune')
+    .send ({
+      Commune:  "Gardanne",
+    })
+    .expect(201);
+
+    expect(response1.body).toEqual([{
+      Commune:  "Gardanne",
+      Code_Postal: "13120",
+      PointGeo: {
+        lon: 5.465,
+        lat: 43.452,
+      },
+      Id: "763910b0-5c3c",
+      Longitude: "5.465",
+      OpeningHours: "24/7",
+    }]);
+
   });
 
 });

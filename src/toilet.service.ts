@@ -98,4 +98,13 @@ export class ToiletService implements OnModuleInit{
     this.toilettes.delete(id);
   }
 
+  /**
+   * Search a toilette by its commune
+   * @param commune 
+   * @returns 
+   */
+  searchByCommune(commune: string) {
+    return Array.from(this.toilettes.values()).filter(toilette => toilette.Commune === commune);
+  }
+
 }
