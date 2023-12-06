@@ -70,6 +70,15 @@ export class ToiletService implements OnModuleInit{
   }
 
   /**
+   * Get a toilette by its id
+   * @param id 
+   * @returns 
+   */
+  getToilet(id: string): Toilette {
+    return this.toilettes.get(id);
+  }
+
+  /**
    * Add a toilette to favorites 
    * @param id 
    */
@@ -78,6 +87,7 @@ export class ToiletService implements OnModuleInit{
     if (toilette) {
       toilette.isFavorite = !toilette.isFavorite;
     }
+    return toilette.isFavorite;
   }
 
   /**

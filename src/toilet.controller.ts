@@ -13,16 +13,21 @@ export class ToiletController {
 
   @Post()
   create(@Body() createToilet: Toilette) {
-    return this.toiletService.addToilette(createToilet);
+    this.toiletService.addToilette(createToilet);
+    return this.toiletService.getToilet(createToilet.Id)
   }
   
-  @Put('/:id')
+  @Put(':id')
   updateFavorite(@Param('id') id: string) {
-    return this.toiletService.updateFavorite(id);
+    this.toiletService.updateFavorite(id);
+    return this.toiletService.getToilet(id);
   }
 
   @Delete('/:id')
   remove(@Param('id') id: string) {
-    return this.toiletService.remove(id);
+    this.toiletService.remove(id);
+    return {
+      message : "Toilet deleted"
+    }
   }
 }
