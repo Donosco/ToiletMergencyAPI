@@ -11,6 +11,10 @@ export class ToiletController {
     return this.toiletService.getAllToilettes();
   }
 
+  @Get('/:id')
+  getToilet(@Param('id') id: string): Toilette {
+    return this.toiletService.getToilet(id);
+  }
   @Post()
   create(@Body() createToilet: Toilette) {
     this.toiletService.addToilette(createToilet);
