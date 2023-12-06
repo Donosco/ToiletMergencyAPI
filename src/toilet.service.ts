@@ -10,6 +10,7 @@ import { ToiletteAPI } from './ToiletteAPI';
 @Injectable()
 export class ToiletService implements OnModuleInit{
   private readonly toilettes = new Map<String, Toilette>();
+  private readonly favorites = new Map<String, Toilette>();
 
   constructor(private readonly httpService : HttpService) {}
 
@@ -83,9 +84,17 @@ export class ToiletService implements OnModuleInit{
    * @param id 
    */
   updateFavorite(id: string) {
-    const toilette = this.toilettes.get(id);
-    if (toilette) {
+    const toilette = this.favorites.get(id);
+    if(toilette) {
       toilette.isFavorite = !toilette.isFavorite;
+      this.favorites.delete(id);
+    }
+    else {
+      const t = this.toilettes.get(id);
+      if(t) {
+        t.isFavorite = true;
+        this.favorites.set(id, t);
+      }
     }
     return toilette.isFavorite;
   }
@@ -105,6 +114,14 @@ export class ToiletService implements OnModuleInit{
    */
   searchByCommune(commune: string) {
     return Array.from(this.toilettes.values()).filter(toilette => toilette.Commune === commune);
+  }
+
+  /**
+   * Get all the favorites toilettes
+   * @returns 
+   */
+  getFavorites() : Array<Toilette> {
+    return Array.from(this.favorites.values());
   }
 
 }

@@ -15,6 +15,7 @@ export class ToiletController {
   getToilet(@Param('id') id: string): Toilette {
     return this.toiletService.getToilet(id);
   }
+  
   @Post()
   create(@Body() createToilet: Toilette) {
     this.toiletService.addToilette(createToilet);
@@ -39,4 +40,10 @@ export class ToiletController {
   searchByCommune(@Body('Commune') Commune: string) {
     return this.toiletService.searchByCommune(Commune);
   }
+
+  //We need to add a get method to get all the toilettes that are favorites
+  // @Get('/favorites')
+  // getFavorites() {
+  //   return this.toiletService.getFavorites();
+  // }
 }
