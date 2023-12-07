@@ -31,6 +31,10 @@ export class Toilette {
      * Flag pour savoir si la toilette est favorite
      */
     isFavorite: boolean = false;
+    /**
+     * URL de l'image de la toilette
+     */
+    ImageURL: string;
 
 
 /**
@@ -43,12 +47,14 @@ export class Toilette {
  * @param Longitude 
  * @param OpeningHours 
  */
-    constructor(Commune: string, Code_Postal: string, PointGeo: PointGeo, Id: string, Longitude: string, OpeningHours: string) {
+    constructor(Commune: string, Code_Postal: string, PointGeo: PointGeo, Id: string, Longitude: string, OpeningHours: string, isFavorite: boolean = false, ImageURL: string ) {
         this.Commune = Commune;
         this.Code_Postal = Code_Postal;
         this.PointGeo = PointGeo;
         this.Id = Id;
         this.Longitude = Longitude;
         this.OpeningHours = OpeningHours;
+        this.isFavorite = isFavorite;
+        this.ImageURL = ImageURL;
     }
 }

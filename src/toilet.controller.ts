@@ -22,8 +22,9 @@ export class ToiletController {
     return this.toiletService.getToilet(createToilet.Id)
   }
   
-  @Put(':id')
+  @Put('/:id')
   updateFavorite(@Param('id') id: string) {
+    console.log("put");
     this.toiletService.updateFavorite(id);
     return this.toiletService.getToilet(id);
   }

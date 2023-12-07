@@ -3,6 +3,7 @@ import { Toilette } from './Toilette';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { ToiletteAPI } from './ToiletteAPI';
+import { ImageLinks } from './ImageLinks';
 
 /**
  * 
@@ -31,9 +32,9 @@ export class ToiletService implements OnModuleInit{
       .pipe(
         map((response) => response.data.results),
         tap((toilets1 : ToiletteAPI[]) => {
-          console.log(Array.isArray(toilets1));
-          toilets1.forEach(toilet => 
-           this.addToilette({
+          toilets1.forEach(toilet => {
+            const randIndex = Math.floor(Math.random() * ImageLinks.length) + 0;
+            this.addToilette({
               Id: toilet.id,
               Commune: toilet.commune,
               Code_Postal: toilet.code_postal,
@@ -41,8 +42,9 @@ export class ToiletService implements OnModuleInit{
               Longitude: toilet.lon,
               OpeningHours: toilet.tags_opening_hours,
               isFavorite: false,
-            }),
-          );
+              ImageURL: ImageLinks[randIndex],
+            });
+          });
         }),
         map(() => undefined),
       ),
@@ -84,16 +86,16 @@ export class ToiletService implements OnModuleInit{
    * @param id 
    */
   updateFavorite(id: string) {
-    const toilette = this.favorites.get(id);
-    if(toilette) {
+    console.log("update");
+    const toilette = this.toilettes.get(id);
+    if(toilette.isFavorite) {
       toilette.isFavorite = !toilette.isFavorite;
       this.favorites.delete(id);
     }
     else {
-      const t = this.toilettes.get(id);
-      if(t) {
-        t.isFavorite = true;
-        this.favorites.set(id, t);
+      if(toilette) {
+        toilette.isFavorite = true;
+        this.favorites.set(id, toilette);
       }
     }
     return toilette.isFavorite;
