@@ -28,7 +28,7 @@ export class ToiletService implements OnModuleInit{
    */
   private async fetchToilettesFromServer() : Promise<void> {
     return firstValueFrom(
-      this.httpService.get('https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/fr-toilettes-publiques@ampmetropole/records?limit=100')
+      this.httpService.get('https://data.opendatasoft.com/api/records/1.0/search/?dataset=fr-toilettes-publiques@ampmetropole&rows=-1')
       .pipe(
         map((response) => response.data.results),
         tap((toilets1 : ToiletteAPI[]) => {
