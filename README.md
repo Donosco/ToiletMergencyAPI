@@ -139,7 +139,7 @@ The toilet data is sourced from the [OpenDataSoft dataset](https://data.opendata
 
 ## API Server Hosting
 
-The API server is hosted on Clever Cloud under the application name "toiletmergency-server." You can access the deployed server at [https://toiletmergency.cleverapps.io/](https://toiletmergency.cleverapps.io/).
+The API server is hosted on Clever Cloud under the application name "toiletmergency-server." You can access the deployed server at [https://toiletmergency.cleverapps.io/](https://toiletmergency.cleverapps.io/toilettes).
 
 ## Contributing
 
