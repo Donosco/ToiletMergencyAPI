@@ -7,8 +7,8 @@ export class ToiletController {
   constructor(private readonly toiletService: ToiletService) {}
 
   @Get()
-  getAllToilettes(): Array<Toilette> {
-    return this.toiletService.getAllToilettes();
+  getAllToilettes(@Query('favorites') favorites : number): Array<Toilette> {
+    return this.toiletService.getAllToilettes(favorites);
   }
 
   @Get('/:id')
@@ -35,15 +35,5 @@ export class ToiletController {
     return {
       message : "Toilet deleted"
     }
-  }
-
-  @Post('/search/commune')
-  searchByCommune(@Body('Commune') Commune: string) {
-    return this.toiletService.searchByCommune(Commune);
-  }
-
-  @Get('/favorites')
-  getFavorites() {
-    return this.toiletService.getFavorites();
   }
 }

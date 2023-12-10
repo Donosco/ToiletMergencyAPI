@@ -181,4 +181,38 @@ describe('Toilet API', () => {
 
   });
 
+  it('/Get (GET favorites)', async () => {
+    const response = await httpRequester
+    .post('/toilettes')
+    .send ({
+      Commune:  "Gardanne",
+      Code_Postal: "13120",
+      PointGeo: {
+        lon: 5.465,
+        lat: 43.452,
+      },
+      Id: "763910b0-5c3c",
+      Longitude: "5.465",
+      OpeningHours: "24/7",
+    })
+    .expect(201);
+
+    const response1 = await httpRequester
+    .put('/toilettes/763910b0-5c3c')
+    .expect(200);
+
+    const response2 = await httpRequester.get('/toilettes?favorites=1').expect(200);
+    expect(response2.body).toEqual([{
+      Commune:  "Gardanne",
+      Code_Postal: "13120",
+      PointGeo: {
+        lon: 5.465,
+        lat: 43.452,
+      },
+      Id: "763910b0-5c3c",
+      Longitude: "5.465",
+      OpeningHours: "24/7",
+      isFavorite: true,
+    }]);
+  });
 });

@@ -68,8 +68,12 @@ export class ToiletService implements OnModuleInit{
    *  Get all toilettes that return all the toilets in current storage
    * @param id 
    */
-  getAllToilettes(): Array<Toilette> {
-    return Array.from(this.toilettes.values());
+  getAllToilettes(favorites : number): Array<Toilette> {
+    console.log(favorites);
+    if(favorites==1) {
+      return Array.from(this.favorites.values());
+    }
+    else return Array.from(this.toilettes.values());
   }
 
   /**
