@@ -30,7 +30,7 @@ export class ToiletService implements OnModuleInit{
     return firstValueFrom(
       this.httpService.get('https://data.opendatasoft.com/api/records/1.0/search/?dataset=fr-toilettes-publiques@ampmetropole&rows=-1')
       .pipe(
-        map((response) => response.data.results),
+        map((response) => response.data),
         tap((toilets1 : ToiletteAPI[]) => {
           toilets1.forEach(toilet => {
             const randIndex = Math.floor(Math.random() * ImageLinks.length) + 0;
