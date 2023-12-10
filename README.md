@@ -56,7 +56,7 @@ Retrieve a list of all toilets.
 - **URL**: `/toilettes`
 - **Method**: `GET`
 - **Query Parameters**:
-  - `favorites` (optional): Filter by favorite status (0 for non-favorites, 1 for favorites).
+  - `favorites` (optional): Filter by favorite status (any for all records, 1 for favorites).
 - **Response**: Array of Toilette objects.
 
 ### Get Toilet by ID
