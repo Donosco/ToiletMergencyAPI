@@ -60,6 +60,10 @@ export class ToiletService implements OnModuleInit{
     if (this.toilettes.has(toilette.Id)) {
       throw new Error('Toilette already exists');
     }else{
+      if(toilette.ImageURL == null) {
+        const randIndex = Math.floor(Math.random() * ImageLinks.length) + 0;
+        toilette.ImageURL = ImageLinks[randIndex];
+      }
       this.toilettes.set(toilette.Id, toilette);
     }
   }
