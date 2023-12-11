@@ -1,4 +1,5 @@
 import { PointGeo } from './PointGeo';
+import { IsString, IsBoolean,  IsNotEmpty } from 'class-validator';
 /**
  * Classe Toilette
  */
@@ -6,10 +7,14 @@ export class Toilette {
     /**
      * Commune de la toilette
      */
+    @IsString()
+    @IsNotEmpty()
     Commune: string;
     /**
      * Adresse de la toilette
      */
+    @IsString()
+    @IsNotEmpty()
     Code_Postal: string;
     /**
      * Point géographique de la toilette
@@ -18,22 +23,29 @@ export class Toilette {
     /**
      * Identifiant de la toilette
      */
+    @IsString()
+    @IsNotEmpty()
     Id: string;
     /**
      * Longitude de la toilette
      */
+    @IsString()
     Longitude: string;
     /**
      * Horaires d'ouverture de la toilette
      */
+    @IsString()
     OpeningHours: string;
     /**
      * Flag pour savoir si la toilette est favorite
      */
+    @IsBoolean()
+    @IsNotEmpty()
     isFavorite: boolean = false;
     /**
      * URL de l'image de la toilette
      */
+    @IsString()
     ImageURL: string;
 
 
