@@ -145,9 +145,6 @@ The API server is hosted on Clever Cloud under the application name "toiletmerge
 
 Contributions are welcome! Feel free to open issues or pull requests for any improvements or bug fixes.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
